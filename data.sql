@@ -1034,8 +1034,12 @@ DECLARE
     component_id INT;
     random_quantity INT;
     random_date TIMESTAMP;
+    max_component_id INT;
 BEGIN
-    FOR component_id IN 1..500 LOOP
+    -- Get the maximum id from the componentes table
+    SELECT MAX(id) INTO max_component_id FROM componentes;
+
+    FOR component_id IN 1..max_component_id LOOP
         random_quantity := 10 + floor(random() * 991)::INT;
         
         random_date := '2023-01-01'::DATE + (random() * (1825))::INT;
@@ -1090,12 +1094,7 @@ BEGIN
         
         random_date := '2023-01-01'::DATE + (random() * (1095))::INT;
         
-        INSERT INTO transaccion (id_cliente, id_vendedor, total, fecha)
-        VALUES (random_customer, random_employee, 0, random_date)
-        RETURNING id INTO transaction_id;
-        
         transaction_total := 0;
-        
         num_items := 1 + floor(random() * 5)::INT;
         
         FOR j IN 1..num_items LOOP
@@ -1106,79 +1105,30 @@ BEGIN
             LIMIT 1;
             
             item_quantity := 1 + floor(random() * 20)::INT;
-            
             item_subtotal := item_price * item_quantity;
-            
-            INSERT INTO detalle_transaccion (id_transaccion, id_componente, cantidad, precio, sub_total)
-            VALUES (transaction_id, component_id, item_quantity, item_price, item_subtotal);
-            
             transaction_total := transaction_total + item_subtotal;
         END LOOP;
-        
-        UPDATE transaccion SET total = transaction_total WHERE id = transaction_id;
-        
-        INSERT INTO pagos_transacciones (id_transaccion, id_metodo_pago, monto_pagado)
-        VALUES (
-            transaction_id, 
-            1 + floor(random() * 5)::INT,
-            transaction_total
-        );
-        
-        IF random() < 0.7 THEN
-            DECLARE
-                customer_address INT;
-                shipping_employee INT;
-                ship_date TIMESTAMP;
-                delivery_date TIMESTAMP;
-                actual_delivery_date TIMESTAMP;
-                shipping_status TEXT;
-            BEGIN
-                SELECT id INTO customer_address
-                FROM direccion_cliente
-                WHERE id_cliente = random_customer
-                LIMIT 1;
-                
-                SELECT id INTO shipping_employee
-                FROM empleado
-                WHERE estado = true AND tipo_empleado = 'bodeguero'
-                ORDER BY random()
-                LIMIT 1;
-                
-                ship_date := random_date::TIMESTAMP + (random() * 86400)::INT * INTERVAL '1 second';
-                delivery_date := ship_date + (1 + floor(random() * 5))::INT * INTERVAL '1 day';
-                
-                IF random() < 0.8 THEN
-                    shipping_status := 'entregado';
-                    actual_delivery_date := delivery_date - (random() * 2)::INT * INTERVAL '1 day';
-                ELSIF random() < 0.9 THEN
-                    shipping_status := 'retrasado';
-                    actual_delivery_date := delivery_date + (1 + floor(random() * 3))::INT * INTERVAL '1 day';
-                ELSE
-                    shipping_status := 'cancelado';
-                    actual_delivery_date := NULL;
-                END IF;
-                
-                INSERT INTO envios (
-                    id_transaccion, 
-                    id_empleado, 
-                    id_direccion, 
-                    fecha_envio, 
-                    fecha_entrega_esperada, 
-                    fecha_entrega, 
-                    estado
-                ) VALUES (
-                    transaction_id,
-                    shipping_employee,
-                    customer_address,
-                    ship_date,
-                    delivery_date,
-                    actual_delivery_date,
-                    shipping_status::estado_envio
-                );
-            END;
+
+        -- Ensure the total is greater than 0 before inserting
+        IF transaction_total > 0 THEN
+            INSERT INTO transaccion (id_cliente, id_vendedor, total, fecha)
+            VALUES (random_customer, random_employee, transaction_total, random_date)
+            RETURNING id INTO transaction_id;
+            
+            FOR j IN 1..num_items LOOP
+                INSERT INTO detalle_transaccion (id_transaccion, id_componente, cantidad, precio, sub_total)
+                VALUES (transaction_id, component_id, item_quantity, item_price, item_subtotal);
+            END LOOP;
+
+            INSERT INTO pagos_transacciones (id_transaccion, id_metodo_pago, monto_pagado)
+            VALUES (
+                transaction_id, 
+                1 + floor(random() * 5)::INT,
+                transaction_total
+            );
         END IF;
     END LOOP;
-END $$; 
+END $$;
 
 -- Insertar 50 compras a proveedores con datos aleatorios
 DO $$
