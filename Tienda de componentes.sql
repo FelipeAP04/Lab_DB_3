@@ -8,15 +8,11 @@ CREATE TABLE componentes (
   disponible boolean NOT NULL DEFAULT true
 );
 
-CREATE TYPE especificaciones AS (
-  especificacion TEXT,
-  valor TEXT 
-);
-
 CREATE TABLE especificaciones_componente (
   id SERIAL PRIMARY KEY NOT NULL,
   id_componente int NOT NULL REFERENCES componentes (id),
-  especificacion especificaciones NOT NULL
+  especificacion varchar(100) NOT NULL,
+  valor varchar(255) NOT NULL
 );
 
 CREATE TABLE tipos_componentes (

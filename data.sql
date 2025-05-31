@@ -1253,8 +1253,8 @@ BEGIN
             spec_value := values[1 + floor(random() * array_length(values, 1))::INT];
             
             -- Insertar especificación
-            INSERT INTO especificaciones_componente (id_componente, especificacion)
-            VALUES (component_id, ROW(spec_name, spec_value)::especificaciones);
+            INSERT INTO especificaciones_componente (id_componente, especificacion, valor)
+            VALUES (component_id, spec_name, spec_value);
         END LOOP;
     END LOOP;
 END $$;
