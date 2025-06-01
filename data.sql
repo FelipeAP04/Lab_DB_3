@@ -724,44 +724,6 @@ INSERT INTO clientes (nombre, apellido, correo, fecha_registro, estado) VALUES
 ('Lucía', 'Briseño', 'lucia.briseno@example.com', '2025-04-29 16:00:00', true),
 ('Miguel', 'Carrera', 'miguel.carrera@example.com', '2025-04-30 09:15:00', true);
 
-INSERT INTO proveedores (nombre, telefono, correo, direccion, estado) VALUES
-('Electrónica Guatemala', '50212345678', 'contacto@electronicagt.com', 'Zona 1, Ciudad de Guatemala', true),
-('Componentes Eléctricos', '50287654321', 'ventas@componenteselectricos.com', 'Zona 10, Ciudad de Guatemala', true),
-('Distribuidora Tecno', '50211223344', 'info@distribuidoratecno.com', 'Zona 4, Ciudad de Guatemala', true),
-('ElectroPartes', '50233445566', 'info@electropartes.com', 'Zona 7, Ciudad de Guatemala', true),
-('TecnoDistribuidora', '50299887766', 'ventas@tecnodistribuidora.com', 'Zona 12, Ciudad de Guatemala', true),
-('CompuElectrónica', '50255667788', 'contacto@compuelectronica.com', 'Zona 5, Ciudad de Guatemala', true);
-
-INSERT INTO inventario (id_componente, cantidad, fecha_movimiento) VALUES
-(1, 100, '2025-01-01 08:00:00'),
-(2, 200, '2025-01-02 09:00:00'),
-(3, 150, '2025-01-03 10:00:00'),
-(4, 300, '2025-01-04 11:00:00'),
-(5, 500, '2025-01-05 12:00:00'),
-(6, 250, '2025-01-06 08:30:00'),
-(7, 300, '2025-01-07 09:15:00'),
-(8, 400, '2025-01-08 10:45:00'),
-(9, 150, '2025-01-09 11:30:00'),
-(10, 200, '2025-01-10 12:00:00');
-
-INSERT INTO transaccion (id_cliente, id_vendedor, total, fecha) VALUES
-(1, 1, 50.00, '2025-06-01'),
-(2, 2, 75.00, '2025-06-02'),
-(3, 3, 100.00, '2025-06-03'),
-(4, 2, 120.00, '2025-07-05'),
-(5, 3, 200.00, '2025-07-10'),
-(6, 1, 300.00, '2025-07-15');
-
-INSERT INTO detalle_transaccion (id_transaccion, id_componente, cantidad, precio, sub_total) VALUES
-(1, 1, 10, 0.10, 1.00),
-(1, 2, 5, 0.10, 0.50),
-(2, 3, 20, 0.25, 5.00),
-(4, 4, 10, 0.15, 1.50),
-(4, 5, 20, 0.05, 1.00),
-(5, 6, 15, 0.07, 1.05),
-(5, 7, 10, 0.50, 5.00),
-(6, 8, 5, 0.55, 2.75);
-
 INSERT INTO empleado (nombre, apellido, tipo_empleado, fecha_contratacion, estado) VALUES
 ('Carlos', 'García', 'administrador', '2020-01-15', true),
 ('María', 'López', 'administrador', '2020-02-20', true),
@@ -813,6 +775,44 @@ INSERT INTO empleado (nombre, apellido, tipo_empleado, fecha_contratacion, estad
 ('Guillermo', 'Lara', 'cajero', '2023-12-10', true),
 ('Lourdes', 'Juárez', 'bodeguero', '2024-01-15', true),
 ('Eduardo', 'Ibarra', 'bodeguero', '2024-02-20', true);
+
+INSERT INTO proveedores (nombre, telefono, correo, direccion, estado) VALUES
+('Electrónica Guatemala', '50212345678', 'contacto@electronicagt.com', 'Zona 1, Ciudad de Guatemala', true),
+('Componentes Eléctricos', '50287654321', 'ventas@componenteselectricos.com', 'Zona 10, Ciudad de Guatemala', true),
+('Distribuidora Tecno', '50211223344', 'info@distribuidoratecno.com', 'Zona 4, Ciudad de Guatemala', true),
+('ElectroPartes', '50233445566', 'info@electropartes.com', 'Zona 7, Ciudad de Guatemala', true),
+('TecnoDistribuidora', '50299887766', 'ventas@tecnodistribuidora.com', 'Zona 12, Ciudad de Guatemala', true),
+('CompuElectrónica', '50255667788', 'contacto@compuelectronica.com', 'Zona 5, Ciudad de Guatemala', true);
+
+INSERT INTO inventario (id_componente, cantidad, fecha_movimiento) VALUES
+(1, 100, '2025-01-01 08:00:00'),
+(2, 200, '2025-01-02 09:00:00'),
+(3, 150, '2025-01-03 10:00:00'),
+(4, 300, '2025-01-04 11:00:00'),
+(5, 500, '2025-01-05 12:00:00'),
+(6, 250, '2025-01-06 08:30:00'),
+(7, 300, '2025-01-07 09:15:00'),
+(8, 400, '2025-01-08 10:45:00'),
+(9, 150, '2025-01-09 11:30:00'),
+(10, 200, '2025-01-10 12:00:00');
+
+INSERT INTO transaccion (id_cliente, id_vendedor, total, fecha) VALUES
+(1, 1, 50.00, '2025-06-01'),
+(2, 2, 75.00, '2025-06-02'),
+(3, 3, 100.00, '2025-06-03'),
+(4, 2, 120.00, '2025-07-05'),
+(5, 3, 200.00, '2025-07-10'),
+(6, 1, 300.00, '2025-07-15');
+
+INSERT INTO detalle_transaccion (id_transaccion, id_componente, cantidad, precio, sub_total) VALUES
+(1, 1, 10, 0.10, 1.00),
+(1, 2, 5, 0.10, 0.50),
+(2, 3, 20, 0.25, 5.00),
+(4, 4, 10, 0.15, 1.50),
+(4, 5, 20, 0.05, 1.00),
+(5, 6, 15, 0.07, 1.05),
+(5, 7, 10, 0.50, 5.00),
+(6, 8, 5, 0.55, 2.75);
 
 -- Insertar direcciones de clientes
 INSERT INTO direccion_cliente (id_cliente, direccion) VALUES
@@ -884,26 +884,26 @@ INSERT INTO direccion_cliente (id_cliente, direccion) VALUES
 (66, ROW('56 Avenida 67-89 Zona 13', 'Ciudad de Guatemala', '01013')),
 (67, ROW('57 Calle 78-90 Zona 14', 'Ciudad de Guatemala', '01014')),
 (68, ROW('58 Avenida 89-01 Zona 15', 'Ciudad de Guatemala', '01015')),
-(69, ROW('59 Calle 90-12 Zona 16', 'Ciudad de Guatemala', '01016')),
-(70, ROW('60 Avenida 01-23 Zona 17', 'Ciudad de Guatemala', '01017')),
-(71, ROW('61 Calle 12-34 Zona 18', 'Ciudad de Guatemala', '01018')),
-(72, ROW('62 Avenida 23-45 Zona 19', 'Ciudad de Guatemala', '01019')),
-(73, ROW('63 Calle 34-56 Zona 2', 'Ciudad de Guatemala', '01002')),
-(74, ROW('64 Avenida 45-67 Zona 3', 'Ciudad de Guatemala', '01003')),
-(75, ROW('65 Calle 56-78 Zona 6', 'Ciudad de Guatemala', '01006')),
-(76, ROW('66 Avenida 67-89 Zona 7', 'Ciudad de Guatemala', '01007')),
-(77, ROW('67 Calle 78-90 Zona 8', 'Ciudad de Guatemala', '01008')),
-(78, ROW('68 Avenida 89-01 Zona 11', 'Ciudad de Guatemala', '01011')),
-(79, ROW('69 Calle 90-12 Zona 12', 'Ciudad de Guatemala', '01012')),
-(80, ROW('70 Avenida 01-23 Zona 1', 'Ciudad de Guatemala', '01001')),
-(81, ROW('71 Calle 12-34 Zona 10', 'Ciudad de Guatemala', '01010')),
-(82, ROW('72 Avenida 23-45 Zona 5', 'Ciudad de Guatemala', '01005')),
-(83, ROW('73 Calle 34-56 Zona 4', 'Ciudad de Guatemala', '01004')),
-(84, ROW('74 Avenida 45-67 Zona 9', 'Ciudad de Guatemala', '01009')),
-(85, ROW('75 Calle 56-78 Zona 13', 'Ciudad de Guatemala', '01013')),
-(86, ROW('76 Avenida 67-89 Zona 14', 'Ciudad de Guatemala', '01014')),
-(87, ROW('77 Calle 78-90 Zona 15', 'Ciudad de Guatemala', '01015')),
-(88, ROW('78 Avenida 89-01 Zona 16', 'Ciudad de Guatemala', '01016')),
+(69, ROW('59 Calle 90-12 Zona 17', 'Ciudad de Guatemala', '01017')),
+(70, ROW('60 Avenida 01-23 Zona 18', 'Ciudad de Guatemala', '01018')),
+(71, ROW('61 Calle 12-34 Zona 19', 'Ciudad de Guatemala', '01019')),
+(72, ROW('62 Avenida 23-45 Zona 2', 'Ciudad de Guatemala', '01002')),
+(73, ROW('63 Calle 34-56 Zona 3', 'Ciudad de Guatemala', '01003')),
+(74, ROW('64 Avenida 45-67 Zona 6', 'Ciudad de Guatemala', '01006')),
+(75, ROW('65 Calle 56-78 Zona 7', 'Ciudad de Guatemala', '01007')),
+(76, ROW('66 Avenida 67-89 Zona 8', 'Ciudad de Guatemala', '01008')),
+(77, ROW('67 Calle 78-90 Zona 11', 'Ciudad de Guatemala', '01011')),
+(78, ROW('68 Avenida 89-01 Zona 12', 'Ciudad de Guatemala', '01012')),
+(79, ROW('69 Calle 90-12 Zona 1', 'Ciudad de Guatemala', '01001')),
+(80, ROW('70 Avenida 01-23 Zona 10', 'Ciudad de Guatemala', '01010')),
+(81, ROW('71 Calle 12-34 Zona 1', 'Ciudad de Guatemala', '01001')),
+(82, ROW('72 Avenida 23-45 Zona 10', 'Ciudad de Guatemala', '01010')),
+(83, ROW('73 Calle 34-56 Zona 5', 'Ciudad de Guatemala', '01005')),
+(84, ROW('74 Avenida 45-67 Zona 4', 'Ciudad de Guatemala', '01004')),
+(85, ROW('75 Calle 56-78 Zona 9', 'Ciudad de Guatemala', '01009')),
+(86, ROW('76 Avenida 67-89 Zona 13', 'Ciudad de Guatemala', '01013')),
+(87, ROW('77 Calle 78-90 Zona 14', 'Ciudad de Guatemala', '01014')),
+(88, ROW('78 Avenida 89-01 Zona 15', 'Ciudad de Guatemala', '01015')),
 (89, ROW('79 Calle 90-12 Zona 17', 'Ciudad de Guatemala', '01017')),
 (90, ROW('80 Avenida 01-23 Zona 18', 'Ciudad de Guatemala', '01018')),
 (91, ROW('81 Calle 12-34 Zona 19', 'Ciudad de Guatemala', '01019')),
@@ -1253,8 +1253,8 @@ BEGIN
             spec_value := values[1 + floor(random() * array_length(values, 1))::INT];
             
             -- Insertar especificación
-            INSERT INTO especificaciones_componente (id_componente, especificacion)
-            VALUES (component_id, ROW(spec_name, spec_value)::especificaciones);
+            INSERT INTO especificaciones_componente (id_componente, especificacion, valor)
+            VALUES (component_id, spec_name, spec_value);
         END LOOP;
     END LOOP;
 END $$;
